@@ -15,6 +15,12 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
+    private String firstname;
+    private String lastname;
+
+
+
+    private String schoolEmail;
     private String email;
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -22,6 +28,22 @@ public class User implements UserDetails {
 
     public User(){
 
+    }
+    public User(Integer id, String email, Role role, String password) {
+        Id = id;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+    }
+
+    public User( String firstname, String lastname, String schoolEmail, String email, Role role, String password) {
+
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.schoolEmail = schoolEmail;
+        this.email = email;
+        this.role = role;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -46,6 +68,30 @@ public class User implements UserDetails {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getSchoolEmail() {
+        return schoolEmail;
+    }
+
+    public void setSchoolEmail(String schoolEmail) {
+        this.schoolEmail = schoolEmail;
     }
 
     @Override
@@ -86,12 +132,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User(Integer id, String email, Role role, String password) {
-        Id = id;
-        this.email = email;
-        this.role = role;
-        this.password = password;
-    }
+
 
 
 
