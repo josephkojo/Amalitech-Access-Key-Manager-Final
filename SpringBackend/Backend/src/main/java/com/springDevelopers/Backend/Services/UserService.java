@@ -5,6 +5,7 @@ import com.springDevelopers.Backend.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +19,9 @@ public class UserService {
     public User findUserByEmail(String email){
         Optional<User> user = this.userRepository.findByEmail(email);
         return user.orElse(null);
+    }
+    public List<User> findAllUser(){
+        List<User> findAllUser = this.userRepository.findAll();
+        return findAllUser;
     }
 }
