@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,7 +41,26 @@ public class AdminController {
         }
         return activeAccessKey == null ? ResponseEntity.status(404).build() : new ResponseEntity<>(activeAccessKey, HttpStatusCode.valueOf(200));
 
-
-
+    }
+    @PutMapping("/revokeKey/{Id}")
+    public ResponseEntity<AccessKeyDTO> revokeKey(@PathVariable Integer Id){
+        AccessKey accessKey = accessKeyService.findAccessKeyById(Id);
+        if(accessKey == null){
+            return ResponseEntity.noContent().build();
+        }
+        accessKey.setStatus(Status.REVOKED);
+        this.accessKeyService.addAccessKey(accessKey);
+        AccessKeyDTO accessKeyDTO = convertToDTO(accessKey);
+        return new ResponseEntity<>(accessKeyDTO, HttpStatus.OK);
+    }
+    private AccessKeyDTO convertToDTO(AccessKey accessKey) {
+        AccessKeyDTO dto = new AccessKeyDTO();
+        dto.setId(accessKey.getId());
+        dto.setKey(accessKey.getKeyName());
+        dto.setStatus(accessKey.getStatus());
+        dto.setDateOfProcurement(accessKey.getDateOfProcurement());
+        dto.setExpiryDate(accessKey.getExpiryDate());
+        dto.setSchoolEmail(accessKey.getUser().getSchoolEmail());
+        return dto;
     }
 }
