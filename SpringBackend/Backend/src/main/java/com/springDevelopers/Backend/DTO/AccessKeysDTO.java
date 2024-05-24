@@ -23,4 +23,44 @@ public class AccessKeysDTO {
         this.dateOfProcurement = dateOfProcurement;
         this.expiryDate = expiryDate;
     }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDate getDateOfProcurement() {
+        return dateOfProcurement;
+    }
+
+    public void setDateOfProcurement(LocalDate dateOfProcurement) {
+        this.dateOfProcurement = dateOfProcurement;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(LocalDate expiryDate) {
+        this.expiryDate = expiryDate;
+    }
 }

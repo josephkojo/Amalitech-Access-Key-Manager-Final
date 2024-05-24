@@ -1,5 +1,6 @@
 package com.springDevelopers.Backend.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.springDevelopers.Backend.Enums.Status;
 import jakarta.persistence.*;
 
@@ -9,18 +10,20 @@ import java.time.LocalDate;
 @Table(name = "access_key")
 public class AccessKey {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
     private String keyName;
     @Enumerated(value = EnumType.STRING)
-    private Status  status;
+    private Status status;
     private LocalDate dateOfProcurement;
     private LocalDate expiryDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
-    public AccessKey(){
 
-    }
+    public AccessKey() { }
 
     public AccessKey(String keyName, Status status, LocalDate dateOfProcurement, LocalDate expiryDate, User user) {
         this.keyName = keyName;

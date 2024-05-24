@@ -11,5 +11,6 @@ import java.util.List;
 public interface AccessKeyRepository  extends JpaRepository<AccessKey, Integer> {
     List<AccessKey> findAccessKeyByUser(User user);
     AccessKey findAccessKeyById(Integer Id);
+    AccessKey getActiveKeyByUser(User user);
 
 }
