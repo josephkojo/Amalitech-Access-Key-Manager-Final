@@ -21,6 +21,15 @@ public class User implements UserDetails {
     private String lastname;
     private String schoolEmail;
     private String email;
+
+    public Set<ForgotPassword> getForgotPasswords() {
+        return forgotPasswords;
+    }
+
+    public void setForgotPasswords(Set<ForgotPassword> forgotPasswords) {
+        this.forgotPasswords = forgotPasswords;
+    }
+
     @Enumerated(value = EnumType.STRING)
     private Role role;
     private String password;
@@ -28,6 +37,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Set<AccessKey> accessKeys;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<ForgotPassword> forgotPasswords;
 
     public User() { }
 
