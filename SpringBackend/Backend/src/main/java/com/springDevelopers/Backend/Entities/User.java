@@ -1,5 +1,6 @@
 package com.springDevelopers.Backend.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springDevelopers.Backend.Enums.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users_table")
@@ -17,18 +19,28 @@ public class User implements UserDetails {
     private Integer Id;
     private String firstname;
     private String lastname;
-
-
-
     private String schoolEmail;
     private String email;
     @Enumerated(value = EnumType.STRING)
     private Role role;
     private String password;
 
-    public User(){
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<AccessKey> accessKeys;
 
+    public User() { }
+
+    public User(String firstname, String lastname, String schoolEmail, String email, Role role, String password, Set<AccessKey> accessKeys) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.schoolEmail = schoolEmail;
+        this.email = email;
+        this.role = role;
+        this.password = password;
+        this.accessKeys = accessKeys;
     }
+
     public User(Integer id, String email, Role role, String password) {
         Id = id;
         this.email = email;
@@ -36,8 +48,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public User( String firstname, String lastname, String schoolEmail, String email, Role role, String password) {
-
+    public User(String firstname, String lastname, String schoolEmail, String email, Role role, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.schoolEmail = schoolEmail;
@@ -94,11 +105,20 @@ public class User implements UserDetails {
         this.schoolEmail = schoolEmail;
     }
 
+    public Set<AccessKey> getAccessKeys() {
+        return accessKeys;
+    }
+
+    public void setAccessKeys(Set<AccessKey> accessKeys) {
+        this.accessKeys = accessKeys;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -131,10 +151,4 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-
-
-
-
 }

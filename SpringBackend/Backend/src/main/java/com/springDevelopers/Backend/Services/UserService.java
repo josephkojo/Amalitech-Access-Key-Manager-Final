@@ -24,4 +24,11 @@ public class UserService {
         List<User> findAllUser = this.userRepository.findAll();
         return findAllUser;
     }
+
+    public User findByUserId(Integer Id){
+        return userRepository.findById(Id).orElse(new User());
+    }
+    public User findUserBySchoolEmail(String schoolEmail){
+        return this.userRepository.findUserBySchoolEmail(schoolEmail).orElse(new User());
+    }
 }
