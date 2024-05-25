@@ -1,6 +1,7 @@
 package com.springDevelopers.Backend.Controllers;
 
 import com.springDevelopers.Backend.DTO.MailBody;
+import com.springDevelopers.Backend.DTO.VerifyOtp;
 import com.springDevelopers.Backend.Entities.ForgotPassword;
 import com.springDevelopers.Backend.Entities.User;
 import com.springDevelopers.Backend.Repositories.ForgotPasswordRepository;
@@ -13,7 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -52,6 +55,26 @@ public class ChangePasswordController {
         }
 
     }
+
+    @PostMapping("/verify")
+    public ResponseEntity<String> validateConfirmationCode(@RequestBody VerifyOtp verifyOtp){
+        User user = userRepository.findByEmail(verifyOtp.getEmail()).orElseThrow(() ->
+                new UsernameNotFoundException("user email does not exist"));
+        List<ForgotPassword> forgotPasswords = this.forgotPasswordRepository.findForgotPasswordGeneratedByUser(user);
+        Integer currentOtp = forgotPasswords.get(forgotPasswords.size() - 1).getOtp();
+        if(!verifyOtp.getOtp().equals(currentOtp)){
+            return new ResponseEntity<>("Please take the currently otp" + currentOtp, HttpStatus.BAD_REQUEST);
+        }
+        ForgotPassword forgotPassword = this.forgotPasswordRepository
+                .findConfirmationCodeAndEmail(currentOtp, user).orElseThrow(()-> new RuntimeException("Could not find"));
+        if(forgotPassword.getExpirationDate().before(Date.from(Instant.now()))){
+            this.forgotPasswordRepository.deleteById(forgotPassword.getForgotPasswordId());
+            return new ResponseEntity<>("Sorry otp has already expired", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Opt has been successfully verified", HttpStatus.OK);
+
+    }
+
 
 
 
