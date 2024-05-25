@@ -20,3 +20,4 @@ spring.mail.username: kojoaidoi@gmail.com
 spring.mail.password: ihokarsohfcyssnl
 spring.mail.properties.mail.smtp.auth: true
 spring.mail.properties.mail.smtp.starttls.enable: true
+
