@@ -1,5 +1,6 @@
 package com.springDevelopers.Backend.Controllers;
 
+import com.springDevelopers.Backend.DTO.ChangePassword;
 import com.springDevelopers.Backend.DTO.MailBody;
 import com.springDevelopers.Backend.DTO.VerifyOtp;
 import com.springDevelopers.Backend.Entities.ForgotPassword;
@@ -73,6 +74,19 @@ public class ChangePasswordController {
         }
         return new ResponseEntity<>("Opt has been successfully verified", HttpStatus.OK);
 
+    }
+
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody ChangePassword changePassword){
+        if(!changePassword.getPassword().equals(changePassword.getRepeatPassword())){
+            return new ResponseEntity<>("Password does not match", HttpStatus.EXPECTATION_FAILED);
+        }
+        User user = userRepository.findByEmail(changePassword.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        String newPassword = passwordEncoder.encode(changePassword.getPassword());
+        user.setPassword(newPassword);
+        this.userRepository.save(user);
+        return new ResponseEntity<>("Your password is " + changePassword.getPassword(), HttpStatus.OK);
     }
 
 
