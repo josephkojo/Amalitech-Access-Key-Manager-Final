@@ -1,9 +1,111 @@
+// import React, { useState } from 'react';
+// import { Container, Row, Col, Form, Button } from 'react-bootstrap'; 
+// import { ToastContainer, toast } from 'react-toastify'; 
+// import 'react-toastify/dist/ReactToastify.css'; 
+// import UserService from '../UserService';
+// import { useNavigate } from 'react-router-dom';
+
+// const Register = () => {
+//   const [formData, setFormData] = useState({
+//     email: '',
+//     password: ''
+//   });
+//   const [error, setError] = useState('');
+//   const [loading, setLoading] = useState(false); // Loading state
+//   const navigate = useNavigate();
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setError('');
+
+//     if (formData.password.length < 8) {
+//       toast.error('Password must be at least 8 characters long.');
+//       return;
+//     }
+
+//     setLoading(true);
+//     try {
+//      const response = await UserService.register(formData);
+//      localStorage.setItem('token', response.token);
+     
+
+//       toast.success('Registration successful!');
+//       setFormData({ email: '', password: '' });
+//       setTimeout(() => {
+//         navigate('/'); 
+//       }, 2000); 
+//     } catch (err) {
+//       setError('Email has already used');
+//     }
+//     setLoading(false);
+//   };
+
+//   const handleInputChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value
+//     });
+//   };
+
+//   return (
+//     <Container className="mt-5">
+//       <Row className="justify-content-center">
+//         <Col xs={12} sm={8} md={6}>
+//           <div className="shadow p-4 rounded">
+//             <h3 className="text-center mb=4">Create An Account for your School</h3>
+//             <Form onSubmit={handleSubmit}>
+//               <Form.Group className="mb-3" controlId="email">
+//                 <Form.Label>Email Address</Form.Label>
+//                 <Form.Control
+//                   type="email"
+//                   name="email"
+//                   value={formData.email}
+//                   onChange={handleInputChange}
+//                   placeholder="Enter email"
+//                   required
+//                 />
+//               </Form.Group>
+
+//               <Form.Group className="mb-3" controlId="password">
+//                 <Form.Label>Password</Form.Label>
+//                 <Form.Control
+//                   type="password"
+//                   name="password"
+//                   value={formData.password}
+//                   onChange={handleInputChange}
+//                   placeholder="Password"
+//                   required
+//                 />
+//               </Form.Group>
+
+//               {error && <div className="alert alert-danger">{error}</div>}
+
+//               <div className="d-grid gap-2">
+//                 <Button variant="primary" type="submit" size="lg" className="mt-3" disabled={loading}>
+//                   {loading ? 'Registering...' : 'Register'}
+//                 </Button>
+//               </div>
+//             </Form>
+//           </div>
+//         </Col>
+//       </Row>
+//       <ToastContainer /> 
+//     </Container>
+//   );
+// };
+
+// export default Register;
+
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import UserService from './UserService';
-import { toast } from 'react-toastify';
+import UserService from '../UserService';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -19,7 +121,7 @@ const Register = () => {
     setError('');
 
     if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long.');
+      toast.error('Password must be at least 8 characters long.');
       return;
     }
 
@@ -27,15 +129,20 @@ const Register = () => {
     try {
       const response = await UserService.register(formData);
       localStorage.setItem('token', response.token);
-      toast.success("Registration successfull");
-      setTimeout(()=>{
-        console.log('ok')
-
-      }, 2000)
-      
-      setLoading(false);
+      toast.success("Registration successful!");
+      setFormData({
+        firstname: '',
+        lastname: '',
+        email: '',
+        schoolEmail: '',
+        password: ''
+      });
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
     } catch (err) {
-      setError('Email has already been used');
+      toast.error('Email has already been used');
+    } finally {
       setLoading(false);
     }
   };
@@ -127,8 +234,10 @@ const Register = () => {
           </div>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   );
 };
 
 export default Register;
+
