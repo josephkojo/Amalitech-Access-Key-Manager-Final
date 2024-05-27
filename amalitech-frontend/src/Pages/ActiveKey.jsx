@@ -3,6 +3,7 @@ import { Card, Container, Button, Form, Row, Col } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
 import UserService from "../UserService";
+import {  Badge } from "react-bootstrap";
 import './Login.css';
 
 const ActiveKey = () => {
@@ -74,17 +75,21 @@ const ActiveKey = () => {
         </Col>
       </Row>
       {accessKeys && (
-        <Card style={{ width: '18rem' }} className="mx-auto mt-4">
-          <Card.Body>
-            <Card.Title>Active Key Details</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">{accessKeys.title || "No title"}</Card.Subtitle>
-            <Card.Text>
-              {accessKeys.description || "No description available"}
-            </Card.Text>
-            <Card.Link href="#">{accessKeys.key}</Card.Link>
-            <Card.Link href="#">Another link</Card.Link>
-          </Card.Body>
-        </Card>
+         <Card style={{ width: '20rem', border: 'none', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }} className="mx-auto mt-4 rounded">
+         <Card.Body>
+           <Card.Title className="text-center mb-3">Active Key Details</Card.Title>
+           <Card.Subtitle className="mb-2 text-muted text-center">
+             <strong>Key Name: </strong>{accessKeys.keyName || "No title"}
+           </Card.Subtitle>
+           <Card.Text className="text-center">
+             <p><strong>Date of Procurement: </strong>{accessKeys.dateOfProcurement || "No description available"}</p>
+             <p><strong>Expiry Date: </strong><span className="text-danger">{accessKeys.expiryDate}</span></p>
+             <p><strong>Status: </strong>
+               <Badge bg={accessKeys.status === 'ACTIVE' ? 'success' : 'danger'}>{accessKeys.status}</Badge>
+             </p>
+           </Card.Text>
+         </Card.Body>
+       </Card>
       )}
       <ToastContainer />
     </Container>
