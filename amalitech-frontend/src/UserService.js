@@ -57,7 +57,7 @@ class UserService{
 
   static async adminGetActive(email, token) {
     try {
-      const response = await axios.get(`${UserService.BASE_URL}/admin/get/${email}`, {
+      const response = await axios.get(`${UserService.BASE_URL}/admin/getActiveKey/${email}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
