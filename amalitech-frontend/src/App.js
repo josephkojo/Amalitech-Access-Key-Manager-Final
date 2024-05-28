@@ -1,7 +1,7 @@
 import './App.css';
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
-import NewLogin from './Pages/newLogin';
+import User from './Pages/User';
 import ActiveKey from './Pages/ActiveKey';
 import ForgotPassword from './Pages/ForgotPassword';
 import Code from './Pages/Code';
@@ -9,7 +9,7 @@ import ChangePassword from './Pages/ChangePassword';
 
 
 import Admin from "./Pages/Admin";
-import User from "./Pages/User";
+
 import Nav from "./Pages/Nav";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -22,8 +22,8 @@ function App() {
           <Routes>
           
             <Route path="/" element={<Login />} />
-            <Route path="/s/:userId" element={<NewLogin />} />
-            <Route path="/ss" element={<NewLogin />} />
+            <Route path="/s/:userId" element={<User />} />
+            <Route path="/ss" element={<User />} />
             <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/soluble" element={<ActiveKey />} />
