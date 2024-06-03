@@ -20,7 +20,10 @@ Access Key Manager is a web application designed for Micro-Focus Inc. to manage 
 - View key details: status, date of procurement, expiry date
 - Restriction to one active key at a time
 
-### Micro-Focus Admin
+### Micro-Focus Admin 
+To login in as an admin  then enter the following credentials 
+## Admin email is mosesmensah081@gmail.com
+## Admin password is kojo@23
 - Login with email and password
 - Manually revoke access keys
 - View all keys on the platform with details
@@ -50,5 +53,8 @@ Docker is a platform for developing, shipping, and running applications inside c
 - **Dockerfile**: A Dockerfile is used to containerize the Spring Boot application, defining the environment and dependencies required to run the application.
 - **docker-compose.yml**: This file is used to define and manage the multi-container setup, including both the Spring Boot application and the PostgreSQL database. Docker Compose ensures that all services start in the correct order and can communicate with each other seamlessly.
 
-By leveraging these technologies, we have created a scalable, secure, and maintainable backend infrastructure for the Access Key Manager application. This setup ensures that our application is easy to deploy and manage across different environments, providing a consistent and reliable experience for all users.
+  ## The deployed github repository and deployed link for the spring backend project are:
+  - #### Github repository for only the backend (spring boot) is
+
+
 
