@@ -25,3 +25,30 @@ Access Key Manager is a web application designed for Micro-Focus Inc. to manage 
 - Manually revoke access keys
 - View all keys on the platform with details
 - Endpoint to check active key details by school email
+
+## Technologies Used
+ 
+
+### Spring Boot(Backend)
+Spring Boot is a powerful, easy-to-use framework for building Java-based web applications. It simplifies the setup and development of new Spring applications, providing a wide range of out-of-the-box functionalities to help developers build production-ready applications quickly and efficiently.
+
+### PostgreSQL
+PostgreSQL is a robust, open-source relational database management system. Known for its reliability, feature robustness, and performance, PostgreSQL is an ideal choice for handling complex queries and large datasets.
+
+### Docker
+Docker is a platform for developing, shipping, and running applications inside containers. By using Docker, we can ensure that our application runs consistently across different environments. Docker simplifies the deployment process and allows for easier management of dependencies and configurations.
+
+### Key Components:
+- **Spring Boot Application**: The core of our backend is built using Spring Boot, providing RESTful APIs to handle user authentication, access key management, and administrative tasks.
+- **Spring Data JPA**: This abstraction layer simplifies the database interactions and ORM (Object Relational Mapping) capabilities, enabling seamless integration with PostgreSQL.
+- **PostgreSQL Database**: All application data is stored in a PostgreSQL database, which is containerized using Docker for easy setup and management.
+- **Docker Compose**: Utilized for defining and running multi-container Docker applications. The backend services and PostgreSQL database are orchestrated using Docker Compose, ensuring they run smoothly together.
+- **Spring Security**: Provides robust security features, including authentication and authorization, ensuring that only authenticated users can access the application’s functionalities.
+- **JWT (JSON Web Token)**: Used for secure authentication and session management, providing a stateless way to handle user sessions.
+
+### Setup and Deployment:
+- **Dockerfile**: A Dockerfile is used to containerize the Spring Boot application, defining the environment and dependencies required to run the application.
+- **docker-compose.yml**: This file is used to define and manage the multi-container setup, including both the Spring Boot application and the PostgreSQL database. Docker Compose ensures that all services start in the correct order and can communicate with each other seamlessly.
+
+By leveraging these technologies, we have created a scalable, secure, and maintainable backend infrastructure for the Access Key Manager application. This setup ensures that our application is easy to deploy and manage across different environments, providing a consistent and reliable experience for all users.
+
