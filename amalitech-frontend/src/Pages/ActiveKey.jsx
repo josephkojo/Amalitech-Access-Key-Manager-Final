@@ -27,7 +27,7 @@ const ActiveKey = () => {
       setAccessKeys(response);
       toast.success("Data fetched successfully!");
     } catch (error) {
-      toast.error("Sorry the school does not have an active key");
+      toast.error("Please enter the correct school email");
       console.error(error);
     }
   };

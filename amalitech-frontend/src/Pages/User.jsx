@@ -12,12 +12,15 @@ const User = () => {
   const { userId } = useParams();
   const [accessKeys, setAccessKeys] = useState([]);
   const [loading, setLoading] = useState(false); 
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true); 
         const token = localStorage.getItem('token');
+        const name = localStorage.getItem('name');
+        setName(name);
         const keysResponse = await UserService.getKeysGeneratedByUser(userId, token);
         setAccessKeys(keysResponse);
         await UserService.updateKeyDetails(userId, token);
@@ -57,7 +60,7 @@ const User = () => {
   
   return (
     <div className="container">
-      <h1>Hello Joe</h1>
+     <h2><strong>Hello {name}!</strong></h2>
       <div className="d-flex justify-content-end mb-3">
         <Button variant="success" onClick={handleClick}>
           Generate New Access Key
@@ -66,11 +69,10 @@ const User = () => {
       <div className="cards">
         {accessKeys.map((card, index) => (
           <div className="card" key={index}>
-            <h3>KeyID: {card.keys}</h3>
-            <p>The Key number is 00{card.id}, procured on <strong style={{ color: 'darkgreen' }}>{card.dateOfProcurement}</strong>. 
-              It has been actively used since its
-               procurement and is set to expire on <strong style={{ color: 'darkred', fontWeight: 'bold', fontSize: 'larger' }}>{card.expiryDate}</strong>. This key plays a 
-              crucial role in securing access to essential resources, ensuring smooth operations within the system.</p>
+            <h3>KeyID: {card.key}{index}</h3>
+            <p>Date of Procurement:  <strong style={{ color: 'darkgreen' }}>{card.dateOfProcurement}</strong>. 
+              Expiry Date  <strong style={{ color: 'darkred', fontWeight: 'bold', fontSize: 'larger' }}>{card.expiryDate}</strong>.  
+              </p>
             <p><strong>Status:</strong>
               <Badge bg={card.status === 'ACTIVE' ? 'success' : 'danger'}>
                 {card.status}

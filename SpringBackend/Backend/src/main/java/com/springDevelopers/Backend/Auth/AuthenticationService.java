@@ -3,6 +3,7 @@ package com.springDevelopers.Backend.Auth;
 import com.springDevelopers.Backend.Entities.User;
 import com.springDevelopers.Backend.Enums.Role;
 import com.springDevelopers.Backend.Repositories.UserRepository;
+import com.springDevelopers.Backend.Services.UserService;
 import com.springDevelopers.Backend.SpringSecurity.JwtService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final UserService userService;
     private final AuthenticationManager authenticationManager;
     public AuthenticateResponse registerUser(RegisterRequest registerRequest){
         User user = new User();
@@ -51,6 +53,7 @@ public class AuthenticationService {
         String token = jwtService.generateToken(user);
         AuthenticateResponse authenticateResponse = new AuthenticateResponse();
         authenticateResponse.setId(user.getId());
+        authenticateResponse.setFirstname(user.getFirstname());
         authenticateResponse.setEmail(user.getEmail());
         authenticateResponse.setRole(user.getRole().toString());
         authenticateResponse.setToken(token);
@@ -58,17 +61,36 @@ public class AuthenticationService {
 
     }
     public AuthenticateResponse loginUser(AuthenticateRequest authenticateRequest){
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticateRequest.getEmail(),
-                authenticateRequest.getPassword()));
-        User user = this.userRepository.findByEmail(authenticateRequest.getEmail()).orElseThrow();
-        String token = this.jwtService.generateToken(user);
-        AuthenticateResponse authenticateResponse = new AuthenticateResponse();
-        authenticateResponse.setId(user.getId());
-        authenticateResponse.setFirstname(user.getFirstname());
-        authenticateResponse.setEmail(user.getEmail());
-        authenticateResponse.setRole(user.getRole().toString());
-        authenticateResponse.setToken(token);
-        return authenticateResponse;
+        if(authenticateRequest.getEmail().equals("mosesmensah081@gmail.com") && authenticateRequest.getPassword().equals("ebo") ){
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticateRequest.getEmail(),
+                    authenticateRequest.getPassword()));
+            User user = this.userRepository.findByEmail(authenticateRequest.getEmail()).orElseThrow();
+            String token = this.jwtService.generateToken(user);
+            AuthenticateResponse authenticateResponse = new AuthenticateResponse();
+            authenticateResponse.setId(user.getId());
+            authenticateResponse.setFirstname(user.getFirstname());
+            authenticateResponse.setEmail(user.getEmail());
+            authenticateResponse.setRole(user.getRole().toString());
+            authenticateResponse.setToken(token);
+            return authenticateResponse;
+
+
+
+        }else{
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticateRequest.getEmail(),
+                    authenticateRequest.getPassword()));
+            User user = this.userRepository.findByEmail(authenticateRequest.getEmail()).orElseThrow();
+            String token = this.jwtService.generateToken(user);
+            AuthenticateResponse authenticateResponse = new AuthenticateResponse();
+            authenticateResponse.setId(user.getId());
+            authenticateResponse.setFirstname(user.getFirstname());
+            authenticateResponse.setEmail(user.getEmail());
+            authenticateResponse.setRole(user.getRole().toString());
+            authenticateResponse.setToken(token);
+            return authenticateResponse;
+
+        }
+
 
     }
 

@@ -7,12 +7,16 @@ import './Login.css';
 
 const Admin = () => {
   const [accessKeys, setAccessKeys] = useState([]);
+  const [name, setName] = useState('');
   const [revokedKeys, setRevokedKeys] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
+        const name = localStorage.getItem('name');
+        setName(name)
+
         const keysResponse = await UserService.getKeysGeneratedByAdmin(token);
         setAccessKeys(keysResponse);
       } catch (error) {
@@ -38,7 +42,7 @@ const Admin = () => {
   return (
     <div className="heading">
       <ToastContainer />
-      <h2><strong>Hello Joe</strong></h2>
+      <h2><strong>Hello {name}!</strong></h2>
       <p><strong style={{ color: '#28a745', fontWeight: 'bold', fontSize: 'larger' }}>Welcome to Admin Page</strong></p>
 
       <div>
@@ -56,11 +60,13 @@ const Admin = () => {
               It has been actively used since its
               procurement and is set to expire on <strong style={{ color: 'darkred', fontWeight: 'bold', fontSize: 'larger' }}>{card.expiryDate}</strong>. This key plays a 
               crucial role in securing access to essential resources, ensuring smooth operations within the system.</p>
+              <p><strong>School Email:{card.schoolEmail} </strong></p>
             <p><strong>Status:</strong>
               <Badge bg={card.status === 'ACTIVE' ? 'success' : 'danger'}>
                 {card.status}
               </Badge>
             </p>
+            
             {!revokedKeys.includes(card.id) && (
               <Button className="button" onClick={() => handleRevokeKey(card.id)}>Revoke Key</Button>
             )}

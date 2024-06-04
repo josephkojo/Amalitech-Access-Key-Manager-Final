@@ -22,6 +22,7 @@ const Login = () => {
       const userData = await UserService.login(formData);
       localStorage.setItem('role', userData.role);
       localStorage.setItem('token', userData.token);
+      localStorage.setItem('name', userData.firstname);
       
       toast.success('Login successful!');
       setTimeout(() => {
