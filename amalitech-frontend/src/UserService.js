@@ -3,7 +3,7 @@ import axios from 'axios';
 
 
 class UserService{
-  static BASE_URL = "http://localhost:5000"
+  static BASE_URL = "https://access-key.onrender.com"
   
   static async register(requestBody){
     
@@ -110,20 +110,21 @@ class UserService{
     }
   }
   
-
-  static async forgotPassword(email, token) {
+  static async forgotPassword(requestBody, token) {
     try {
-      const response = await axios.post(`${UserService.BASE_URL}/forgotPassword/${email}`, null, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      return response.data;
+        const response = await axios.post(`${UserService.BASE_URL}/forgotPassword/email`, requestBody, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
     } catch (error) {
-      console.error('Error in forgotPassword:', error); 
-      throw error;
+        // console.error('Error in forgotPassword:', error); 
+        throw error;
     }
-  }
+}
+
+
   
 
 
