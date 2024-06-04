@@ -5,11 +5,9 @@ Access Key Manager is a web application designed for Micro-Focus Inc. to manage 
 - [Project Description](#project-description)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Usage](#usage)
 - [API Endpoints](#api-endpoints)
 - [Database Schema](#database-schema)
-- [Contributing](#contributing)
-- [License](#license)
+
 - 
 
 ## Features
@@ -53,8 +51,34 @@ Docker is a platform for developing, shipping, and running applications inside c
 - **Dockerfile**: A Dockerfile is used to containerize the Spring Boot application, defining the environment and dependencies required to run the application.
 - **docker-compose.yml**: This file is used to define and manage the multi-container setup, including both the Spring Boot application and the PostgreSQL database. Docker Compose ensures that all services start in the correct order and can communicate with each other seamlessly.
 
-  ## The deployed github repository and deployed link for the spring backend project are:
-  - #### Github repository for only the backend (spring boot) is
+  ### The  github repository for the backened (spring boot) is:
+  - #### Github repository for only the backend (spring boot) is https://github.com/josephkojo/backend.git
+
+
+### Frontend
+- **React**: A JavaScript library for building user interfaces, providing a component-based architecture and a reactive data flow.
+- Github repository for only the frontend(react) is https://github.com/josephkojo/frontend.git
+
+
+## API Endpoints
+
+### School IT Personnel
+- **POST https://access-key.onrender.com/auth/register** - Signup a new user
+- **POST https://access-key.onrender.com/auth/login** - Login a user
+- **POST https://access-key.onrender.com/forgotPassword/email** - verify email to  Request password reset
+-  **POST https://access-key.onrender.com/forgotPassword/verify** - verify otp for password reset
+-  **POST https://access-key.onrender.com/forgotPassword/changePassword** - change password  for password reset
+- **GET https://access-key.onrender.com/user/accessKeys/{Id}** - Get all access keys for the logged-in user
+- **POST https://access-key.onrender.com/user/generateKey/{Id}** - Generate access keys by particular user
+
+### Micro-Focus Admin
+- **POST https://access-key.onrender.com/auth/login** - Login an admin with email mosesmensah081@gmail.com  and password  kojo@23
+- **PUT https://access-key.onrender.com/admin/revokeKey/{Id}** - Revoke an access key
+- **GET https://access-key.onrender.com/admin/getAllKeys** - Get all keys on the platform
+- **GET https://access-key.onrender.com/admin/getActiveKey/{email}** - Check active key status by school email
+
+
+    
 
 
 
