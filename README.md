@@ -80,6 +80,9 @@ Docker is a platform for developing, shipping, and running applications inside c
 - **GET https://access-key.onrender.com/admin/getActiveKey/{email}** - Check active key status by school email
 
 
+
+## Entity Relationship Diagram (ER)
+
     
 
 
